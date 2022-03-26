@@ -9,6 +9,7 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
+    user: {},
     loading: false,
   };
 
@@ -17,6 +18,7 @@ export const GithubProvider = ({ children }) => {
   const config = {
     headers: {
       Authorization: `token ${GITHUB_TOKEN}`,
+      'User-Agent': 'request',
     },
   };
 
@@ -58,13 +60,38 @@ export const GithubProvider = ({ children }) => {
     });
   };
 
+  const fetchUser = async (login) => {
+    setLoading(true);
+
+    try {
+      const data = await axios({
+        method: 'GET',
+        url: `https://api.github.com/users/${login}`,
+        config,
+      });
+
+      if (data.status === 404) {
+        window.location('/not-found');
+      } else {
+        dispatch({
+          type: 'GET_USER',
+          payload: data.data,
+        });
+      }
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   return (
     <GithubContext.Provider
       value={{
+        user: state.user,
         users: state.users,
         loading: state.loading,
         fetchData,
         clearData,
+        fetchUser,
       }}
     >
       {children}

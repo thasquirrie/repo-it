@@ -5,17 +5,19 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { GithubProvider } from './context/github/GithubContext';
 import { AlertProvider } from './context/alert/AlertContext';
+import UserDetails from './pages/UserDetails';
 
 function App() {
   return (
     <GithubProvider>
       <AlertProvider>
         <Router>
-          <div className='bg-white'>
+          <div className='h-full bg-white'>
             <div className='relative overflow-hidden'>
               <Header />
               <main className=''>
                 <Routes>
+                  <Route path='/user/:login' element={<UserDetails />} />
                   <Route path='/' element={<Home />} />
                   <Route path='/*' element={<NotFound />} />
                 </Routes>
