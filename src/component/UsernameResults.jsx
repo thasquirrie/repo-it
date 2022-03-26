@@ -37,10 +37,10 @@ export default function UsernameResults() {
               ))}
             </div>
           ) : (
-            <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+            <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
               {users.map((user) => (
                 <li
-                  key={user.email}
+                  key={user.login}
                   className='col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200'
                 >
                   <div className='flex-1 flex flex-col p-8'>
@@ -53,8 +53,6 @@ export default function UsernameResults() {
                       {user.login}
                     </h3>
                     <dl className='mt-1 flex-grow flex flex-col justify-between'>
-                      <dt className='sr-only'>Title</dt>
-                      <dd className='text-gray-500 text-sm'>{user.type}</dd>
                       <dt className='sr-only'>Role</dt>
                       <dd className='mt-3'>
                         <span className='px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full'>

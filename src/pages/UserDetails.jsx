@@ -154,54 +154,66 @@ export default function UserDetails() {
                   </dl>
                 </div>
 
-                <div>
-                  <h2 className='mt-6 text-gray-500 text-base font-medium uppercase tracking-wide my-4'>
-                    Repositories{' '}
-                    <span className='text-sm'>
-                      (First 30 in alphabetical order)
-                    </span>
-                  </h2>
-                  <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-4 '>
-                    {repos.map((org, index) => (
-                      <li
-                        key={org.name}
-                        className='col-span-1 flex shadow-sm rounded-md'
-                      >
-                        <div
-                          className={classNames(
-                            'bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md '
-                          )}
+                <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
+                  {repos.length !== 0 ? (
+                    <h2 className='mt-6 text-gray-500 text-base font-medium uppercase tracking-wide my-4'>
+                      Repositories{' '}
+                      <span className='text-sm'>
+                        (First 30 in alphabetical order)
+                      </span>
+                    </h2>
+                  ) : (
+                    <h2 className='mt-6 text-gray-500 text-base font-medium uppercase tracking-wide my-4'>
+                      Repositories{' '}
+                    </h2>
+                  )}
+                  {repos.length !== 0 ? (
+                    <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-4 '>
+                      {repos.map((org, index) => (
+                        <li
+                          key={org.name}
+                          className='col-span-1 flex shadow-sm rounded-md'
                         >
-                          {index + 1}
-                        </div>
-                        <div className='flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate'>
-                          <div className='flex-1 px-4 py-2 text-sm truncate'>
-                            <a
-                              href={org.html_url}
-                              className='text-gray-900 font-medium hover:text-gray-600 capitalize'
-                            >
-                              {org.name}
-                            </a>
-                            <p className='text-gray-500'>
-                              {org.forks_count} Forks
-                            </p>
-                            {org.homepage && (
+                          <div
+                            className={classNames(
+                              'bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md '
+                            )}
+                          >
+                            {index + 1}
+                          </div>
+                          <div className='flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate'>
+                            <div className='flex-1 px-4 py-2 text-sm truncate'>
                               <a
-                                href={org.homepage}
+                                href={org.html_url}
                                 target={'_blank'}
                                 rel='noreferrer'
-                                className='text-indigo-500 truncate'
+                                className='text-gray-900 font-medium hover:text-gray-600 capitalize'
                               >
-                                Homepage
+                                {org.name}
                               </a>
-                            )}
+                              <p className='text-gray-500'>
+                                {org.forks_count} Forks
+                              </p>
+                              {org.homepage && (
+                                <a
+                                  href={org.homepage}
+                                  target={'_blank'}
+                                  rel='noreferrer'
+                                  className='text-indigo-500 truncate'
+                                >
+                                  Homepage
+                                </a>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className='text-base font-medium'>No repository found</p>
+                  )}
                 </div>
-                <div>
+                <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
                   <h2 className='mt-6 text-gray-500 text-base font-medium uppercase tracking-wide my-4'>
                     Organizations
                   </h2>

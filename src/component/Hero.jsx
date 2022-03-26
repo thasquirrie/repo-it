@@ -52,15 +52,13 @@ export default function Hero() {
                     />
                   </Link>
                   <h1 className='mt-4 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl'>
-                    <span className='block'>Faster way to search</span>
+                    <span className='block'>Another way to search</span>
                     <span className='block text-indigo-400'>
                       for github repos
                     </span>
                   </h1>
                   <p className='mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl'>
-                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                    qui Lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                    occaecat fugiat.
+                    Simplistic, fun and elegant.
                   </p>
                   <div className='mt-10 sm:mt-12'>
                     {alert && <Alert msg={alert.msg} type={alert.type} />}
