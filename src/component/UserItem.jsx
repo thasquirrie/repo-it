@@ -11,9 +11,7 @@ const UserItem = ({ user }) => {
       <div className='space-y-2'>
         <div className='text-xs font-medium lg:text-sm'>
           <h3 className='capitalize'>{user.login}</h3>
-          <p className='text-indigo-600 truncate'>
-            {user.url.replace('api', 'www')}
-          </p>
+          <p className='text-indigo-600 font-bold truncate'>{user.type}</p>
         </div>
       </div>
     </div>

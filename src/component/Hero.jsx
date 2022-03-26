@@ -2,6 +2,8 @@ import { ChevronRightIcon } from '@heroicons/react/solid';
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import GithubContext from '../context/github/GithubContext';
+import AlertContext from '../context/alert/AlertContext';
+import Alert from './Alert';
 
 const classNames = (...classes) => {
   return classes.filter(Boolean).join(' ');
@@ -11,13 +13,17 @@ export default function Hero() {
   const [text, setText] = useState('');
 
   const { users, loading, fetchData } = useContext(GithubContext);
+  const { setAlert, alert } = useContext(AlertContext);
 
   const changeHandler = (e) => setText(e.target.value);
   const submitHandler = (e) => {
     e.preventDefault();
-
-    fetchData(text);
-    console.log(text);
+    if (text === '') {
+      setAlert('Please enter a query', 'error');
+    } else {
+      fetchData(text);
+      setText('');
+    }
   };
   return (
     <div className='relative overflow-hidden'>
@@ -57,6 +63,7 @@ export default function Hero() {
                     occaecat fugiat.
                   </p>
                   <div className='mt-10 sm:mt-12'>
+                    {alert && <Alert msg={alert.msg} type={alert.type} />}
                     <form
                       onSubmit={submitHandler}
                       className='sm:max-w-xl sm:mx-auto lg:mx-0'

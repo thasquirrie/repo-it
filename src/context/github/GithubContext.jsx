@@ -52,9 +52,20 @@ export const GithubProvider = ({ children }) => {
     });
   };
 
+  const clearData = () => {
+    dispatch({
+      type: 'CLEAR_USERS',
+    });
+  };
+
   return (
     <GithubContext.Provider
-      value={{ users: state.users, loading: state.loading, fetchData }}
+      value={{
+        users: state.users,
+        loading: state.loading,
+        fetchData,
+        clearData,
+      }}
     >
       {children}
     </GithubContext.Provider>

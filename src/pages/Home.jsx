@@ -4,7 +4,7 @@ import UsernameResults from '../component/UsernameResults';
 
 const Home = () => {
   return (
-    <div className='min-h-screen'>
+    <div className=''>
       <Hero />
       <UsernameResults />
     </div>

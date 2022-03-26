@@ -9,9 +9,11 @@ const classNames = (...classes) => {
 };
 
 export default function UsernameResults() {
-  const { users, loading } = useContext(GithubContext);
+  const { users, loading, clearData } = useContext(GithubContext);
 
   const newArray = new Array(6).fill(0);
+
+  // const clearHandler = () => {};
 
   return (
     <div
@@ -44,6 +46,14 @@ export default function UsernameResults() {
               ))}
             </ul>
           )}
+          <div>
+            <button
+              className='bg-indigo-500 text-white px-3 py-2 rounded-lg w-1/4 shadow-xl shadow-indigo-500/70 hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-lg active:shadow-indigo-500/60'
+              onClick={clearData}
+            >
+              Clear
+            </button>
+          </div>
         </div>
       </div>
     </div>
