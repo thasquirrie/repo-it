@@ -10,6 +10,8 @@ export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
     user: {},
+    repos: [],
+    orgs: [],
     loading: false,
   };
 
@@ -83,15 +85,61 @@ export const GithubProvider = ({ children }) => {
     }
   };
 
+  const fetchRepos = async (login) => {
+    setLoading(true);
+
+    try {
+      const data = await axios({
+        method: 'GET',
+        url: `https://api.github.com/users/${login}/repos`,
+        config,
+      });
+
+      dispatch({
+        type: 'GET_USER_REPOS',
+        payload: data.data,
+      });
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
+  const fetchOrgs = async (login) => {
+    setLoading(true);
+
+    try {
+      const data = await axios({
+        method: 'GET',
+        url: `https://api.github.com/users/${login}/orgs`,
+        config,
+      });
+
+      if (data.status === 404) {
+        window.location('/not-found');
+      }
+
+      dispatch({
+        type: 'GET_USER_ORGS',
+        payload: data.data,
+      });
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   return (
     <GithubContext.Provider
       value={{
         user: state.user,
         users: state.users,
+        repos: state.repos,
+        orgs: state.orgs,
         loading: state.loading,
         fetchData,
         clearData,
         fetchUser,
+        fetchRepos,
+        fetchOrgs,
       }}
     >
       {children}

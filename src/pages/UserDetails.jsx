@@ -1,65 +1,10 @@
-import { Fragment, useState, useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import GithubContext from '../context/github/GithubContext';
-import { Dialog, Transition } from '@headlessui/react';
-import {
-  CalendarIcon,
-  CogIcon,
-  HomeIcon,
-  MapIcon,
-  MenuIcon,
-  SearchCircleIcon,
-  SpeakerphoneIcon,
-  UserGroupIcon,
-  ViewGridAddIcon,
-  XIcon,
-} from '@heroicons/react/outline';
-import {
-  ChevronLeftIcon,
-  FilterIcon,
-  MailIcon,
-  PhoneIcon,
-  SearchIcon,
-} from '@heroicons/react/solid';
+
+import { UserIcon } from '@heroicons/react/solid';
 import { useParams } from 'react-router';
 
-const user = {
-  name: 'Tom Cook',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-};
-
 const tabs = [{ name: 'Profile', href: '#', current: true }];
-
-const team = [
-  {
-    name: 'Leslie Alexander',
-    handle: 'lesliealexander',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Michael Foster',
-    handle: 'michaelfoster',
-    role: 'Co-Founder / CTO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Dries Vincent',
-    handle: 'driesvincent',
-    role: 'Manager, Business Relations',
-    imageUrl:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Lindsay Walton',
-    handle: 'lindsaywalton',
-    role: 'Front-end Developer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -69,26 +14,28 @@ const coverImageUrl =
   'https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80';
 
 export default function UserDetails() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const { user, fetchUser } = useContext(GithubContext);
+  const { user, repos, orgs, fetchUser, fetchRepos, fetchOrgs } =
+    useContext(GithubContext);
 
   console.log({ user });
 
   const { login } = useParams();
   console.log({ login });
+  console.log({ repos });
 
   useEffect(() => {
     fetchUser(login);
+    fetchRepos(login);
+    fetchOrgs(login);
   }, [login]);
 
   let fields = {
+    Username: user.login,
     Email: !user.email ? '-' : user.email,
     Followers: user.followers,
     Following: user.following,
     Location: !user.location ? '-' : user.location,
     Hireable: !user.hireable ? '-' : user.hireable,
-    Username: user.login,
     Twitter: !user.twitter_username ? '-' : user.twitter_username,
     Repositories: user.public_repos,
     'Opened Account': user.created_at,
@@ -129,27 +76,19 @@ export default function UserDetails() {
                             {user.name}
                           </h1>
                         </div>
-                        <div className='mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4'>
-                          <button
-                            type='button'
-                            className='inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
+                        <div className='mt-6'>
+                          <a
+                            href='https://github.com/thasquirrie'
+                            target={`_blank`}
+                            rel='noreferrer'
+                            className='inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                           >
-                            <MailIcon
+                            <UserIcon
                               className='-ml-1 mr-2 h-5 w-5 text-gray-400'
                               aria-hidden='true'
                             />
-                            <span>Message</span>
-                          </button>
-                          <button
-                            type='button'
-                            className='inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500'
-                          >
-                            <PhoneIcon
-                              className='-ml-1 mr-2 h-5 w-5 text-gray-400'
-                              aria-hidden='true'
-                            />
-                            <span>Call</span>
-                          </button>
+                            <span>Github Profile Link</span>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -215,41 +154,102 @@ export default function UserDetails() {
                   </dl>
                 </div>
 
-                {/* Team member list */}
-                <div className='mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8'>
-                  <h2 className='text-sm font-medium text-gray-500'>
-                    Team members
+                <div>
+                  <h2 className='mt-6 text-gray-500 text-base font-medium uppercase tracking-wide my-4'>
+                    Repositories{' '}
+                    <span className='text-sm'>
+                      (First 30 in alphabetical order)
+                    </span>
                   </h2>
-                  <div className='mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2'>
-                    {team.map((person) => (
-                      <div
-                        key={person.handle}
-                        className='relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500'
+                  <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-4 '>
+                    {repos.map((org, index) => (
+                      <li
+                        key={org.name}
+                        className='col-span-1 flex shadow-sm rounded-md'
                       >
-                        <div className='flex-shrink-0'>
-                          <img
-                            className='h-10 w-10 rounded-full'
-                            src={person.imageUrl}
-                            alt=''
-                          />
+                        <div
+                          className={classNames(
+                            'bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md '
+                          )}
+                        >
+                          {index + 1}
                         </div>
-                        <div className='flex-1 min-w-0'>
-                          <a href='#' className='focus:outline-none'>
-                            <span
-                              className='absolute inset-0'
-                              aria-hidden='true'
-                            />
-                            <p className='text-sm font-medium text-gray-900'>
-                              {person.name}
+                        <div className='flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate'>
+                          <div className='flex-1 px-4 py-2 text-sm truncate'>
+                            <a
+                              href={org.html_url}
+                              className='text-gray-900 font-medium hover:text-gray-600 capitalize'
+                            >
+                              {org.name}
+                            </a>
+                            <p className='text-gray-500'>
+                              {org.forks_count} Forks
                             </p>
-                            <p className='text-sm text-gray-500 truncate'>
-                              {person.role}
-                            </p>
-                          </a>
+                            {org.homepage && (
+                              <a
+                                href={org.homepage}
+                                target={'_blank'}
+                                rel='noreferrer'
+                                className='text-indigo-500 truncate'
+                              >
+                                Homepage
+                              </a>
+                            )}
+                          </div>
                         </div>
-                      </div>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
+                </div>
+                <div>
+                  <h2 className='mt-6 text-gray-500 text-base font-medium uppercase tracking-wide my-4'>
+                    Organizations
+                  </h2>
+                  {orgs.length !== 0 ? (
+                    <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-4 '>
+                      {orgs.map((org, index) => (
+                        <li
+                          key={org.name}
+                          className='col-span-1 flex shadow-sm rounded-md'
+                        >
+                          <div
+                            className={classNames(
+                              'bg-indigo-500 flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md '
+                            )}
+                          >
+                            {index + 1}
+                          </div>
+                          <div className='flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate'>
+                            <div className='flex-1 px-4 py-2 text-sm truncate'>
+                              <a
+                                href={org.html_url}
+                                className='text-gray-900 font-medium hover:text-gray-600 capitalize'
+                              >
+                                {org.name}
+                              </a>
+                              <p className='text-gray-500'>
+                                {org.forks_count} Forks
+                              </p>
+                              {org.homepage && (
+                                <a
+                                  href={org.homepage}
+                                  target={'_blank'}
+                                  rel='noreferrer'
+                                  className='text-indigo-500 truncate'
+                                >
+                                  Homepage
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className='mb-4 text-base font-medium'>
+                      No public organizations found 😭😭😭
+                    </p>
+                  )}
                 </div>
               </article>
             </main>
