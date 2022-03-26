@@ -8,8 +8,8 @@ export default function Alert({ msg, type }) {
   return (
     <div
       className={classNames(
-        type === 'error' ? 'bg-red-400' : 'bg-yellow-50',
-        'bg-yellow-50 border-l-4 border-red-900 px-4 py-3 mb-2 rounded-lg'
+        type === 'error' && 'bg-red-400',
+        ' border-l-4 border-red-900 px-4 py-3 mb-2 rounded-lg'
       )}
     >
       <div className='flex'>

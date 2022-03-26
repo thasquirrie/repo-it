@@ -37,11 +37,11 @@ export default function UsernameResults() {
               ))}
             </div>
           ) : (
-            <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
+            <ul className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 '>
               {users.map((user) => (
                 <li
                   key={user.login}
-                  className='col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200'
+                  className='col-span-1 flex flex-col text-center bg-white rounded-lg shadow hover:shadow-xl divide-y divide-gray-200 '
                 >
                   <div className='flex-1 flex flex-col p-8'>
                     <img
