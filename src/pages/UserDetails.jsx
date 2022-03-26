@@ -155,7 +155,7 @@ export default function UserDetails() {
                 </div>
 
                 <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
-                  {repos.length !== 0 ? (
+                  {repos.length !== 0 && repos.length < 30 ? (
                     <h2 className='mt-6 text-gray-500 text-base font-medium uppercase tracking-wide my-4'>
                       Repositories{' '}
                       <span className='text-sm'>
