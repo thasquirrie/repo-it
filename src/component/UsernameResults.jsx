@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import Loading from './Loading';
-import UserItem from './UserItem';
+// import UserItem from './UserItem';
 import GithubContext from '../context/github/GithubContext';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { UserIcon } from '@heroicons/react/solid';
 
 const classNames = (...classes) => {

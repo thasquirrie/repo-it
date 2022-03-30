@@ -114,6 +114,8 @@ export const GithubProvider = ({ children }) => {
         config,
       });
 
+      console.log(data.data);
+
       if (data.status === 404) {
         window.location('/not-found');
       }

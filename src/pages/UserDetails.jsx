@@ -27,7 +27,10 @@ export default function UserDetails() {
     fetchUser(login);
     fetchRepos(login);
     fetchOrgs(login);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [login]);
+
+  console.log({ orgs });
 
   let fields = {
     Username: user.login,
@@ -221,7 +224,7 @@ export default function UserDetails() {
                     <ul className='mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-4 '>
                       {orgs.map((org, index) => (
                         <li
-                          key={org.name}
+                          key={org.login}
                           className='col-span-1 flex shadow-sm rounded-md'
                         >
                           <div
@@ -237,19 +240,19 @@ export default function UserDetails() {
                                 href={org.html_url}
                                 className='text-gray-900 font-medium hover:text-gray-600 capitalize'
                               >
-                                {org.name}
+                                {org.login}
                               </a>
                               <p className='text-gray-500'>
-                                {org.forks_count} Forks
+                                Number: {org.id}
                               </p>
-                              {org.homepage && (
+                              {org.repos_url && (
                                 <a
-                                  href={org.homepage}
+                                  href={`https://github.com/orgs/${org.login}/repositories`}
                                   target={'_blank'}
                                   rel='noreferrer'
                                   className='text-indigo-500 truncate'
                                 >
-                                  Homepage
+                                  Repos Link
                                 </a>
                               )}
                             </div>

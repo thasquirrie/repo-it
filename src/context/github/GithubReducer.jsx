@@ -28,6 +28,12 @@ const githubReducer = (state, action) => {
         repos: action.payload,
         loading: false,
       };
+    case 'GET_USER_ORGS':
+      return {
+        ...state,
+        orgs: action.payload,
+        loading: false
+      };
     default:
       return state;
   }
